@@ -11,5 +11,6 @@ namespace SiteParserApi.Data.Repositories.Abstract
         public IEnumerable<Post> GetAllPosts();
         public IEnumerable<Post> GetPostsBySource(string source);
         public Task SaveEntity(Post entity);
+        public Task UpdateEntity(Post entity);
     }
 }

@@ -25,6 +25,12 @@ namespace SiteParserApi.Data.Repositories.EntityFramework
 
         public int GetPostsCount() => _context.Posts.Count();
 
+        public Task UpdateEntity(Post entity)
+        {
+            _context.Entry(entity).State = EntityState.Modified;
+            return _context.SaveChangesAsync();
+        }
+
         public Task SaveEntity(Post entity)
         {
             _context.Posts.Add(entity);

@@ -27,7 +27,7 @@ namespace SiteParserApi
             services.AddTransient<IPostRepository, EFPostRepository>();
             services.AddTransient<IMediaRepository, EFMediaRepository>();
             services.AddTransient<IMediaTypeRepository, EFMediaTypeRepository>();
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
