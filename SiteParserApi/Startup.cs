@@ -21,13 +21,14 @@ namespace SiteParserApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            string connectionString = _configuration.GetConnectionString("HappyDB");
+            string connectionString = _configuration.GetConnectionString("DefaultConnection");
             services.AddDbContextPool<AppDBContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
             services.AddTransient<AppDBContext>();
             services.AddTransient<IPostRepository, EFPostRepository>();
             services.AddTransient<IMediaRepository, EFMediaRepository>();
             services.AddTransient<IMediaTypeRepository, EFMediaTypeRepository>();
             services.AddControllers().AddNewtonsoftJson();
+            //services.AddHostedService<ParseSitesHostedService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

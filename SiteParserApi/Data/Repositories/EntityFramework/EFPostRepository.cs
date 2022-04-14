@@ -23,6 +23,8 @@ namespace SiteParserApi.Data.Repositories.EntityFramework
 
         public IEnumerable<Post> GetPostsBySource(string source) => _context.Posts.Include(c => c.Medias).ThenInclude(c => c.MediaType).Where(x => x.Source == source);
 
+        public IEnumerable<Post> GetPostsByLimit(int limit, int offset) => _context.Posts.Include(c => c.Medias).ThenInclude(c => c.MediaType).Skip(offset).Take(limit);
+
         public int GetPostsCount() => _context.Posts.Count();
 
         public Task UpdateEntity(Post entity)
