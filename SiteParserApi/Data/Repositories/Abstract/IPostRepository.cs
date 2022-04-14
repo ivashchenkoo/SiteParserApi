@@ -10,6 +10,7 @@ namespace SiteParserApi.Data.Repositories.Abstract
         public Post GetPostById(int id);
         public IEnumerable<Post> GetAllPosts();
         public IEnumerable<Post> GetPostsByLimit(int limit, int offset);
+        public int GetPagesCount(int limit);
         public IEnumerable<Post> GetPostsBySource(string source);
         public Task SaveEntity(Post entity);
         public Task UpdateEntity(Post entity);

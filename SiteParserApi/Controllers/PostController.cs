@@ -36,15 +36,29 @@ namespace SiteParserApi.Controllers
         }
 
         [HttpGet("page/{paginate}/{size}")]
-        public string GetPostsPage(int? page, int size = 1)
+        public ActionResult<string> GetPostsPage(int page, int size)
         {
-            return JsonConvert.SerializeObject(_posts.GetPostsByLimit(size, ((page > 0 ? page - 1 : page) ?? 0) * size), _jsonSerializerSettings);
+            if (page < 0 || page >_posts.GetPagesCount(size))
+            {
+                return BadRequest();
+            }
+
+            PaginatedList<Post> posts = new PaginatedList<Post>(_posts.GetAllPosts(), page, size);
+
+            return JsonConvert.SerializeObject(posts, _jsonSerializerSettings);
         }
 
         [HttpGet("paginate")]
-        public string GetPostsPageQuery(int? page, int size = 1)
+        public ActionResult<string> GetPostsPageQuery(int page = 0, int size = 1)
         {
-            return JsonConvert.SerializeObject(_posts.GetPostsByLimit(size, ((page > 0 ? page - 1 : page) ?? 0) * size), _jsonSerializerSettings);
+            if (page < 0 || page > _posts.GetPagesCount(size))
+            {
+                return BadRequest();
+            }
+
+            PaginatedList<Post> posts = new PaginatedList<Post>(_posts.GetAllPosts(), page, size);
+
+            return JsonConvert.SerializeObject(posts, _jsonSerializerSettings);
         }
 
         [HttpPost]

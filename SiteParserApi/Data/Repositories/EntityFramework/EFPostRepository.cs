@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,11 @@ namespace SiteParserApi.Data.Repositories.EntityFramework
         public IEnumerable<Post> GetPostsByLimit(int limit, int offset) => _context.Posts.Include(c => c.Medias).ThenInclude(c => c.MediaType).Skip(offset).Take(limit);
 
         public int GetPostsCount() => _context.Posts.Count();
+
+        public int GetPagesCount(int limit)
+        {
+            return (int)Math.Ceiling(GetPostsCount() / (double)limit);
+        }
 
         public Task UpdateEntity(Post entity)
         {
