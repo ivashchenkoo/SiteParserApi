@@ -23,7 +23,7 @@ namespace SiteParserApi.Data.Models
         {
             get
             {
-                return PageIndex > 0 ? (int?)(PageIndex - 1) : null;
+                return PageIndex > 1 ? (int?)(PageIndex - 1) : null;
             }
         }
 

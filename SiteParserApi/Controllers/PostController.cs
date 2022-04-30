@@ -35,10 +35,10 @@ namespace SiteParserApi.Controllers
             return JsonConvert.SerializeObject(_posts.GetPostById(id), _jsonSerializerSettings);
         }
 
-        [HttpGet("page/{paginate}/{size}")]
+        [HttpGet("page/{page}/{size}")]
         public ActionResult<string> GetPostsPage(int page, int size)
         {
-            if (page < 0 || page >_posts.GetPagesCount(size))
+            if (page < 1 || page >_posts.GetPagesCount(size))
             {
                 return BadRequest();
             }
@@ -49,9 +49,9 @@ namespace SiteParserApi.Controllers
         }
 
         [HttpGet("paginate")]
-        public ActionResult<string> GetPostsPageQuery(int page = 0, int size = 1)
+        public ActionResult<string> GetPostsPageQuery(int page = 1, int size = 1)
         {
-            if (page < 0 || page > _posts.GetPagesCount(size))
+            if (page < 1 || page > _posts.GetPagesCount(size))
             {
                 return BadRequest();
             }
